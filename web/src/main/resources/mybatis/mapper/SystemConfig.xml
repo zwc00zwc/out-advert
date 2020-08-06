@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.outad.dao.mapper.SystemConfigMapper">
+
+    <resultMap id="BaseResultMap" type="com.outad.dao.model.SystemConfig">
+        <id column="id" property="id" jdbcType="BIGINT" ></id>
+        <id column="group" property="group" jdbcType="VARCHAR" ></id>
+        <result column="key" property="key" jdbcType="VARCHAR"></result>
+        <result column="value" property="value" jdbcType="VARCHAR"></result>
+        <result column="remark" property="remark" jdbcType="VARCHAR"></result>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"></result>
+        <result column="del_flag" property="delFlag" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <sql id="select_sql">
+        SELECT id,group,key,value,remark,create_time,update_time,del_flag
+    </sql>
+
+    <insert id="insert" parameterType="com.outad.dao.model.SystemConfig">
+        insert into ad_system_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="group != null">
+                group,
+            </if>
+            <if test="key != null">
+                key,
+            </if>
+            <if test="value != null">
+                value,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            create_time,
+            update_time,
+            del_flag
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="group != null">
+                #{group,jdbcType=VARCHAR},
+            </if>
+            <if test="key != null">
+                #{key,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null">
+                #{value,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            now(),
+            now(),
+            1
+        </trim>
+    </insert>
+
+    <select id="queryByGroup" resultMap="BaseResultMap">
+        <include refid="select_sql"/> from ad_system_config where group = #{group} and del_flag = 1
+    </select>
+
+    <update id="remove">
+        update ad_system_config set del_flag = -1 where id = #{id}
+    </update>
+</mapper>

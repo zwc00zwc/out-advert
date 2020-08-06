@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.outad.dao.mapper.ProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.outad.dao.model.Product">
+        <id column="id" property="id" jdbcType="BIGINT" ></id>
+        <id column="thumbnail" property="thumbnail" jdbcType="VARCHAR" ></id>
+        <result column="show_pic" property="showPic" jdbcType="VARCHAR"></result>
+        <result column="area" property="area" jdbcType="BIGINT"></result>
+        <result column="category" property="category" jdbcType="BIGINT"></result>
+        <result column="extend_info" property="extendInfo" jdbcType="VARCHAR"></result>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"></result>
+        <result column="del_flag" property="delFlag" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <sql id="select_sql">
+        SELECT id,thumbnail,show_pic,area,category,extend_info,create_time,update_time,del_flag
+    </sql>
+
+    <insert id="insert" parameterType="com.outad.dao.model.Product">
+        insert into ad_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="thumbnail != null">
+                thumbnail,
+            </if>
+            <if test="showPic != null">
+                show_pic,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="category != null">
+                category,
+            </if>
+            <if test="extendInfo != null">
+                extend_info,
+            </if>
+            create_time,
+            update_time,
+            del_flag
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="thumbnail != null">
+                #{thumbnail,jdbcType=BIGINT},
+            </if>
+            <if test="showPic != null">
+                #{showPic,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=BIGINT},
+            </if>
+            <if test="category != null">
+                #{category,jdbcType=BIGINT},
+            </if>
+            <if test="extendInfo != null">
+                #{extendInfo,jdbcType=VARCHAR},
+            </if>
+            now(),
+            now(),
+            1
+        </trim>
+    </insert>
+
+    <select id="queryById" resultMap="BaseResultMap">
+        <include refid="select_sql"/> from ad_product where id = #{id}
+    </select>
+
+    <update id="remove">
+        update ad_product set del_flag = -1 where id = #{id}
+    </update>
+
+    <select id="queryPageCount" resultType="java.lang.Integer">
+        select count(*) from ad_product
+        <where>
+            <if test="query.name!=null and query.name!=''">
+                and name like #{query.name}"%"
+            </if>
+            <if test="query.area!=null and query.area>0">
+                and area = #{query.area}
+            </if>
+            <if test="query.category!=null and query.category>0">
+                and category = #{query.category}
+            </if>
+            and del_flag = 1
+        </where>
+    </select>
+
+    <select id="queryPageList" resultMap="BaseResultMap">
+        <include refid="select_sql"/> from tb_black_ip
+        <where>
+            <if test="query.name!=null and query.name!=''">
+                and name like #{query.name}"%"
+            </if>
+            <if test="query.area!=null and query.area>0">
+                and area = #{query.area}
+            </if>
+            <if test="query.category!=null and query.category>0">
+                and category = #{query.category}
+            </if>
+            and del_flag = 1
+        </where>
+    </select>
+</mapper>
