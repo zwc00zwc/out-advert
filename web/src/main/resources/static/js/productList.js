@@ -1,0 +1,99 @@
+var roomTable;
+$(function () {
+    productList();
+    searchProductList();
+})
+
+function productList() {
+    roomTable = $('#product_table').dataTable({
+        language: datatable_zn,
+        'bAutoWidth': false,
+        'bFilter': false,
+        'bProcessing': false,
+        'bSort': false,
+        'bServerSide': true,
+        'fnServerParams': function (aoData) {
+            getAllSearchValue(aoData);
+        },
+        'sAjaxSource': '/console/ajaxProductList',
+        "createdRow": function (row, data, index) {
+            $('td', row).eq(5).css('text-align', "center");
+        },
+        'aoColumns': [
+            {
+                'mDataProp': 'id',
+                'bSortable': false
+            }, {
+                'mDataProp': 'name',
+                'bSortable': false
+            }, {
+                'mDataProp': 'thumbnail',
+                'bSortable': false
+            }, {
+                'mDataProp': 'area',
+                'bSortable': false
+            }, {
+                'mDataProp': 'category',
+                'bSortable': false
+            }, {
+                'mDataProp': 'extendInfo',
+                'bSortable': false
+            }, {
+                'mDataProp': 'createTime',
+                'bSortable': false
+            }, {
+                'mDataProp': 'updateTime',
+                'bSortable': false
+            }
+            , {
+                'mDataProp': 'operation',
+                'bSortable': false,
+                'mRender': function (data, type, row) {
+                    return getAllOperation(row);
+                }
+            }
+        ]
+    });
+}
+
+function getAllSearchValue(aoData) {
+    aoData.push({
+        "name": 'key',
+        "value": trimStr($('#key').val())
+    });
+}
+
+function searchProductList() {
+    $("#search").on("click", function () {
+        roomTable.fnDraw();
+    });
+}
+
+function getAllOperation(row) {
+    var edit = '<input id="edit" data-id="' + row.id + '" class="btn btn-secondary radius" type="button" value="编辑">';
+    var remove = '<input id="remove" data-id="' + row.id + '" class="btn btn-danger radius" type="button" value="删除">';
+    return edit + remove;
+}
+
+$("#product_table").on("click", '#edit', function () {
+    var id = $(this).attr("data-id");
+    layer_show('编辑广告位', '/console/editProduct?id=' + id + '', '', '800');
+});
+
+$("#product_table").on("click", '#remove', function () {
+    var id = $(this).attr("data-id");
+    layer.confirm("确定删除该广告位", function (result) {
+        if (result) {
+            $.post(
+                '/console/removeProduct', { id: id }, function (data) {
+                    if (data.success) {
+                        layer.msg('操作成功', { icon: 1, time: 1000 });
+                        domainConfigTable.fnDraw();
+                    } else {
+                        layer.msg(data.errorDesc, { icon: 5, time: 1000 });
+                    }
+                }
+            );
+        }
+    });
+});

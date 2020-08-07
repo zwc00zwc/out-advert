@@ -8,23 +8,32 @@
 
     <resultMap id="BaseResultMap" type="com.outad.dao.model.Product">
         <id column="id" property="id" jdbcType="BIGINT" ></id>
-        <id column="thumbnail" property="thumbnail" jdbcType="VARCHAR" ></id>
+        <result column="name" property="name" jdbcType="VARCHAR" ></result>
+        <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" ></result>
         <result column="show_pic" property="showPic" jdbcType="VARCHAR"></result>
         <result column="area" property="area" jdbcType="BIGINT"></result>
         <result column="category" property="category" jdbcType="BIGINT"></result>
-        <result column="extend_info" property="extendInfo" jdbcType="VARCHAR"></result>
+        <result column="parm" property="parm" jdbcType="VARCHAR"></result>
+        <result column="serial_no" property="serialNo" jdbcType="VARCHAR"></result>
+        <result column="place" property="place" jdbcType="VARCHAR"></result>
+        <result column="run_time" property="runTime" jdbcType="VARCHAR"></result>
+        <result column="flow" property="flow" jdbcType="VARCHAR"></result>
+        <result column="introduce_info" property="introduceInfo" jdbcType="VARCHAR"></result>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"></result>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"></result>
         <result column="del_flag" property="delFlag" jdbcType="INTEGER"></result>
     </resultMap>
 
     <sql id="select_sql">
-        SELECT id,thumbnail,show_pic,area,category,extend_info,create_time,update_time,del_flag
+        SELECT id,name,thumbnail,show_pic,area,category,parm,serial_no,place,run_time,flow,introduce_info,create_time,update_time,del_flag
     </sql>
 
     <insert id="insert" parameterType="com.outad.dao.model.Product">
         insert into ad_product
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
             <if test="thumbnail != null">
                 thumbnail,
             </if>
@@ -37,16 +46,34 @@
             <if test="category != null">
                 category,
             </if>
-            <if test="extendInfo != null">
-                extend_info,
+            <if test="parm != null">
+                parm,
+            </if>
+            <if test="serialNo != null">
+                serial_no,
+            </if>
+            <if test="place != null">
+                place,
+            </if>
+            <if test="runTime != null">
+                run_time,
+            </if>
+            <if test="flow != null">
+                flow,
+            </if>
+            <if test="introduceInfo != null">
+                introduce_info,
             </if>
             create_time,
             update_time,
             del_flag
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
             <if test="thumbnail != null">
-                #{thumbnail,jdbcType=BIGINT},
+                #{thumbnail,jdbcType=VARCHAR},
             </if>
             <if test="showPic != null">
                 #{showPic,jdbcType=VARCHAR},
@@ -57,8 +84,23 @@
             <if test="category != null">
                 #{category,jdbcType=BIGINT},
             </if>
-            <if test="extendInfo != null">
-                #{extendInfo,jdbcType=VARCHAR},
+            <if test="parm != null">
+                #{parm,jdbcType=VARCHAR},
+            </if>
+            <if test="serialNo != null">
+                #{serialNo,jdbcType=VARCHAR},
+            </if>
+            <if test="place != null">
+                #{place,jdbcType=VARCHAR},
+            </if>
+            <if test="runTime != null">
+                #{runTime,jdbcType=VARCHAR},
+            </if>
+            <if test="flow != null">
+                #{flow,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceInfo != null">
+                #{introduceInfo,jdbcType=VARCHAR},
             </if>
             now(),
             now(),
@@ -66,7 +108,48 @@
         </trim>
     </insert>
 
-    <select id="queryById" resultMap="BaseResultMap">
+    <update id="update" parameterType="com.outad.dao.model.Product">
+        update ad_product
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="thumbnail != null">
+                thumbnail = #{thumbnail,jdbcType=VARCHAR},
+            </if>
+            <if test="showPic != null">
+                show_pic = #{showPic,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=BIGINT},
+            </if>
+            <if test="category != null">
+                category = #{category,jdbcType=BIGINT},
+            </if>
+            <if test="parm != null">
+                parm = #{parm,jdbcType=VARCHAR},,
+            </if>
+            <if test="serialNo != null">
+                serial_no = #{serialNo,jdbcType=VARCHAR},,
+            </if>
+            <if test="place != null">
+                place = #{place,jdbcType=VARCHAR},,
+            </if>
+            <if test="runTime != null">
+                run_time = #{runTime,jdbcType=VARCHAR},,
+            </if>
+            <if test="flow != null">
+                flow = #{flow,jdbcType=VARCHAR},,
+            </if>
+            <if test="introduceInfo != null">
+                introduce_info = #{introduceInfo,jdbcType=VARCHAR},,
+            </if>
+            update_time = now(),
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap">
         <include refid="select_sql"/> from ad_product where id = #{id}
     </select>
 
@@ -74,7 +157,7 @@
         update ad_product set del_flag = -1 where id = #{id}
     </update>
 
-    <select id="queryPageCount" resultType="java.lang.Integer">
+    <select id="selectPageCount" resultType="java.lang.Integer">
         select count(*) from ad_product
         <where>
             <if test="query.name!=null and query.name!=''">
@@ -90,7 +173,7 @@
         </where>
     </select>
 
-    <select id="queryPageList" resultMap="BaseResultMap">
+    <select id="selectPageList" resultMap="BaseResultMap">
         <include refid="select_sql"/> from tb_black_ip
         <where>
             <if test="query.name!=null and query.name!=''">
@@ -104,5 +187,6 @@
             </if>
             and del_flag = 1
         </where>
+        limit #{query.startRow,jdbcType=INTEGER}, #{query.pageSize,jdbcType=INTEGER}
     </select>
 </mapper>

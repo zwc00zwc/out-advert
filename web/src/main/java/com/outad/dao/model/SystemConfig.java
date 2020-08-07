@@ -9,7 +9,7 @@ import java.util.Date;
 public class SystemConfig {
     private Long id;
 
-    private String group;
+    private String configGroup;
 
     private String key;
 
@@ -31,12 +31,12 @@ public class SystemConfig {
         this.id = id;
     }
 
-    public String getGroup() {
-        return group;
+    public String getConfigGroup() {
+        return configGroup;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setConfigGroup(String configGroup) {
+        this.configGroup = configGroup;
     }
 
     public String getKey() {

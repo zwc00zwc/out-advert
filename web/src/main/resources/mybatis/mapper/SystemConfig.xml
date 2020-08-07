@@ -8,7 +8,7 @@
 
     <resultMap id="BaseResultMap" type="com.outad.dao.model.SystemConfig">
         <id column="id" property="id" jdbcType="BIGINT" ></id>
-        <id column="group" property="group" jdbcType="VARCHAR" ></id>
+        <result column="config_group" property="configGroup" jdbcType="VARCHAR" ></result>
         <result column="key" property="key" jdbcType="VARCHAR"></result>
         <result column="value" property="value" jdbcType="VARCHAR"></result>
         <result column="remark" property="remark" jdbcType="VARCHAR"></result>
@@ -18,20 +18,20 @@
     </resultMap>
 
     <sql id="select_sql">
-        SELECT id,group,key,value,remark,create_time,update_time,del_flag
+        SELECT id,config_group,`key`,`value`,remark,create_time,update_time,del_flag
     </sql>
 
     <insert id="insert" parameterType="com.outad.dao.model.SystemConfig">
         insert into ad_system_config
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="group != null">
-                group,
+            <if test="configGroup != null">
+                config_group,
             </if>
             <if test="key != null">
-                key,
+                `key`,
             </if>
             <if test="value != null">
-                value,
+                `value`,
             </if>
             <if test="remark != null">
                 remark,
@@ -41,8 +41,8 @@
             del_flag
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="group != null">
-                #{group,jdbcType=VARCHAR},
+            <if test="configGroup != null">
+                #{configGroup,jdbcType=VARCHAR},
             </if>
             <if test="key != null">
                 #{key,jdbcType=VARCHAR},
@@ -59,8 +59,40 @@
         </trim>
     </insert>
 
-    <select id="queryByGroup" resultMap="BaseResultMap">
-        <include refid="select_sql"/> from ad_system_config where group = #{group} and del_flag = 1
+    <select id="selectById" resultMap="BaseResultMap">
+        <include refid="select_sql"/> from ad_system_config where id = #{id}
+    </select>
+
+    <select id="selectByGroup" resultMap="BaseResultMap">
+        <include refid="select_sql"/> from ad_system_config where config_group = #{configGroup} and del_flag = 1
+    </select>
+
+    <select id="selectPageCount" resultType="java.lang.Integer">
+        select count(*) from ad_system_config
+        <where>
+            <if test="query.configGroup!=null and query.configGroup!=''">
+                and `config_group` = #{query.configGroup}
+            </if>
+            and del_flag = 1
+        </where>
+    </select>
+
+    <select id="selectPageList" resultMap="BaseResultMap">
+        <include refid="select_sql"/> from ad_system_config
+        <where>
+            <if test="query.configGroup!=null and query.configGroup!=''">
+                and `config_group` = #{query.configGroup}
+            </if>
+            <if test="query.key!=null and query.key!=''">
+                and `key` = #{query.key}
+            </if>
+            and del_flag = 1
+        </where>
+        limit #{query.startRow,jdbcType=INTEGER}, #{query.pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByGroupAndKey" resultMap="BaseResultMap">
+        <include refid="select_sql"/> from ad_system_config where `config_group` = #{group} and `key` = #{key} limit 1
     </select>
 
     <update id="remove">

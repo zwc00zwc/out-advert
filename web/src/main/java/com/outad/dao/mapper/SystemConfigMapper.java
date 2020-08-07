@@ -1,6 +1,7 @@
 package com.outad.dao.mapper;
 
 import com.outad.dao.model.SystemConfig;
+import com.outad.dao.model.query.SystemConfigQuery;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +13,15 @@ import java.util.List;
 public interface SystemConfigMapper {
     int insert(SystemConfig systemConfig);
 
-    List<SystemConfig> queryByGroup(@Param("group") String group);
+    SystemConfig selectById(@Param("id")Long id);
+
+    List<SystemConfig> selectByGroup(@Param("configGroup") String configGroup);
+
+    int selectPageCount(@Param("query")SystemConfigQuery query);
+
+    List<SystemConfig> selectPageList(@Param("query")SystemConfigQuery query);
 
     int remove(@Param("id")Long id);
+
+    SystemConfig selectByGroupAndKey(@Param("group")String group,@Param("key")String key);
 }

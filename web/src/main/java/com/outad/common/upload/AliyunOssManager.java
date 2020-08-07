@@ -41,11 +41,11 @@ public class AliyunOssManager {
 
     public static String uploadForeverImg(InputStream stream, String suffix) {
         try {
-            String accessKeyId = CommonPropertiesUtility.getProperty("accessKeyId");
-            String accessKeySecret = CommonPropertiesUtility.getProperty("accessKeySecret");
-            String endPoint = CommonPropertiesUtility.getProperty("endPoint");
-            String bucketName = CommonPropertiesUtility.getProperty("bucketName");
-            String domainStr = CommonPropertiesUtility.getProperty("domainStr");
+            String accessKeyId = "LTAI4G77wafdJRivH1fp4VFY";
+            String accessKeySecret = "TKgdhD5yakdZ416TWn8YtZdyAOyP6k";
+            String endPoint = "oss-cn-hangzhou.aliyuncs.com";
+            String bucketName = "out-advert";
+            String domainStr = "http://out-advert.oss-cn-hangzhou.aliyuncs.com";
             // 创建OSSClient实例。
             OSSClient ossClient = new OSSClient(endPoint, new DefaultCredentialProvider(accessKeyId, accessKeySecret), null);
             String key = "f_" + uploadKey() + suffix;

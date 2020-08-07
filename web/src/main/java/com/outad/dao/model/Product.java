@@ -19,7 +19,17 @@ public class Product {
 
     private Long category;
 
-    private String extendInfo;
+    private String parm;
+
+    private String serialNo;
+
+    private String place;
+
+    private String runTime;
+
+    private String flow;
+
+    private String introduceInfo;
 
     private Date createTime;
 
@@ -59,14 +69,6 @@ public class Product {
         this.showPic = showPic;
     }
 
-    public String getExtendInfo() {
-        return extendInfo;
-    }
-
-    public void setExtendInfo(String extendInfo) {
-        this.extendInfo = extendInfo;
-    }
-
     public Long getArea() {
         return area;
     }
@@ -81,6 +83,54 @@ public class Product {
 
     public void setCategory(Long category) {
         this.category = category;
+    }
+
+    public String getParm() {
+        return parm;
+    }
+
+    public void setParm(String parm) {
+        this.parm = parm;
+    }
+
+    public String getSerialNo() {
+        return serialNo;
+    }
+
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getRunTime() {
+        return runTime;
+    }
+
+    public void setRunTime(String runTime) {
+        this.runTime = runTime;
+    }
+
+    public String getFlow() {
+        return flow;
+    }
+
+    public void setFlow(String flow) {
+        this.flow = flow;
+    }
+
+    public String getIntroduceInfo() {
+        return introduceInfo;
+    }
+
+    public void setIntroduceInfo(String introduceInfo) {
+        this.introduceInfo = introduceInfo;
     }
 
     public Date getCreateTime() {

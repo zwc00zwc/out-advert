@@ -13,11 +13,13 @@ import java.util.List;
 public interface ProductMapper {
     int insert(Product product);
 
-    Product queryById(@Param("id")Long id);
+    int update(Product product);
 
-    int queryPageCount(@Param("query")ProductQuery query);
+    Product selectById(@Param("id")Long id);
 
-    List<Product> queryPageList(@Param("query")ProductQuery query);
+    int selectPageCount(@Param("query")ProductQuery query);
+
+    List<Product> selectPageList(@Param("query")ProductQuery query);
 
     int remove(@Param("id")Long id);
 }

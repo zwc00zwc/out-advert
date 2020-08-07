@@ -32,9 +32,9 @@ mybatis:
     maxWait: 1000
     useUnfairLock: true
 
-    url: jdbc:mysql://rm-j6c83mm0369g4nzth.mysql.rds.aliyuncs.com:3306/chatroom?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&autoReconnect=true&failOverReadOnly=false
-    username: chatroom_rw
-    password: $%AaSs415263
+    url: jdbc:mysql://rm-bp1rh20rix7j8eix9125010qm.mysql.rds.aliyuncs.com:3306/advert?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&autoReconnect=true&failOverReadOnly=false
+    username: advert001
+    password: ABC!@#abc
     driverClassName: com.mysql.cj.jdbc.Driver
     validationQuery: SELECT 1
     connectionInitSqls: set names utf8mb4

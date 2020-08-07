@@ -52,7 +52,7 @@
                 <ul>
                     <li><a data-href="/console/banner" data-title="banner设置" href="javascript:void(0)">banner设置</a></li>
                     <li><a data-href="/console/areaList" data-title="区域列表" href="javascript:void(0)">区域列表</a></li>
-                    <li><a data-href="/console/advertList" data-title="房间列表" href="javascript:void(0)">广告位列表</a></li>
+                    <li><a data-href="/console/productList" data-title="房间列表" href="javascript:void(0)">广告位列表</a></li>
                 </ul>
             </dd>
         </dl>
