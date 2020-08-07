@@ -121,28 +121,28 @@
                 show_pic = #{showPic,jdbcType=VARCHAR},
             </if>
             <if test="area != null">
-                area = #{area,jdbcType=BIGINT},
+                area = #{area,jdbcType=VARCHAR},
             </if>
             <if test="category != null">
-                category = #{category,jdbcType=BIGINT},
+                category = #{category,jdbcType=VARCHAR},
             </if>
             <if test="parm != null">
-                parm = #{parm,jdbcType=VARCHAR},,
+                parm = #{parm,jdbcType=VARCHAR},
             </if>
             <if test="serialNo != null">
-                serial_no = #{serialNo,jdbcType=VARCHAR},,
+                serial_no = #{serialNo,jdbcType=VARCHAR},
             </if>
             <if test="place != null">
-                place = #{place,jdbcType=VARCHAR},,
+                place = #{place,jdbcType=VARCHAR},
             </if>
             <if test="runTime != null">
-                run_time = #{runTime,jdbcType=VARCHAR},,
+                run_time = #{runTime,jdbcType=VARCHAR},
             </if>
             <if test="flow != null">
-                flow = #{flow,jdbcType=VARCHAR},,
+                flow = #{flow,jdbcType=VARCHAR},
             </if>
             <if test="introduceInfo != null">
-                introduce_info = #{introduceInfo,jdbcType=VARCHAR},,
+                introduce_info = #{introduceInfo,jdbcType=VARCHAR},
             </if>
             update_time = now(),
         </set>

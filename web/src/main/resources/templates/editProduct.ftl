@@ -2,11 +2,11 @@
 <@layout.layout>
     <article class="page-container">
         <form action="" method="post" class="form form-horizontal" id="form-product-add">
-            <input type="hidden" value="" id="id" name="id">
+            <input type="hidden" value="${product.id!''}" id="id" name="id">
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>广告位名：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+                    <input type="text" class="input-text" value="${product.name!''}" placeholder="" id="name" name="name">
                 </div>
             </div>
             <div class="row cl">
@@ -16,7 +16,11 @@
                     <select class="select" size="1" name="area">
                         <#if area?exists>
                             <#list area as i>
-                                <option value="${i.id!''}">${i.value!''}</option>
+                                <#if (product.area!'0'?number) == i.id>
+                                    <option selected="selected" value="${i.id!''}">${i.value!''}</option>
+                                    <#else>
+                                    <option value="${i.id!''}">${i.value!''}</option>
+                                </#if>
                             </#list>
                         </#if>
                     </select>
@@ -30,7 +34,11 @@
                     <select class="select" size="1" name="category">
                         <#if category?exists>
                             <#list category?keys as k>
-                                <option value="${k!''}">${category[k]!''}</option>
+                                <#if (product.category!'') == k>
+                                    <option selected="selected" value="${k!''}">${category[k]!''}</option>
+                                    <#else>
+                                    <option value="${k!''}">${category[k]!''}</option>
+                                </#if>
                             </#list>
                         </#if>
                     </select>
@@ -55,8 +63,8 @@
                         <a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 上传图片</a>
                         <input id="thumbnailUpload" type="file" class="input-file valid" data-url="/console/upload" multiple="">
                     </span>
-                    <input type="hidden" name="thumbnail" id="thumbnail" value="" style="width:200px">
-                    <img id="thumbnailSrc" style="width:100px;" onclick="removeThumbnail()" src="" />
+                    <input type="hidden" name="thumbnail" id="thumbnail" value="${product.thumbnail!''}" style="width:200px">
+                    <img id="thumbnailSrc" style="width:100px;" onclick="removeThumbnail()" src="${product.thumbnail!''}" />
                 </div>
             </div>
             <div class="row cl">
@@ -66,45 +74,45 @@
                         <a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 上传图片</a>
                         <input id="showPicUpload" type="file" class="input-file valid" data-url="/console/upload" multiple="">
                     </span>
-                    <input type="hidden" name="showPic" id="showPic" value="" style="width:200px">
+                    <input type="hidden" name="showPic" id="showPic" value="${product.showPic!''}" style="width:200px">
                     <#--                    <img style="width:100px;" onclick="removeShowPic()" src="" />-->
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">参数：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="parm" name="parm">
+                    <input type="text" class="input-text" value="${product.parm!''}" placeholder="" id="parm" name="parm">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">编号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="serialNo" name="serialNo">
+                    <input type="text" class="input-text" value="${product.serialNo!''}" placeholder="" id="serialNo" name="serialNo">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">媒体位置：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="place" name="place">
+                    <input type="text" class="input-text" value="${product.place!''}" placeholder="" id="place" name="place">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">时间：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="runTime" name="runTime">
+                    <input type="text" class="input-text" value="${product.runTime!''}" placeholder="" id="runTime" name="runTime">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">人流量：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="flow" name="flow">
+                    <input type="text" class="input-text" value="${product.flow!''}" placeholder="" id="flow" name="flow">
                 </div>
             </div>
 
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">媒体介绍：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <textarea name="introduceInfo" cols="" rows="" class="textarea valid" placeholder=""></textarea>
+                    <textarea name="introduceInfo" cols="" rows="" class="textarea valid" placeholder="">${product.introduceInfo!''}</textarea>
                     <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
                 </div>
             </div>
@@ -144,13 +152,15 @@
                 done: function (e, data) {
                     if (data.result.success) {
                         var val = $("#showPic").val();
+
+                        var v = {"id":new Date().getTime(),"value":data.result.result}
                         var sp;
                         if (!val){
                             sp = new Array();
-                            sp.push(data.result.result);
+                            sp.push(v);
                         }else {
                             sp = eval(val);
-                            sp.push(data.result.result);
+                            sp.push(v);
                         }
                         $("#showPic").val(JSON.stringify(sp));
                         $('#showpic-div').append('<img style="width:100px;" onclick="removeShowPic(this)" src="'+data.result.result+'" />');

@@ -144,16 +144,20 @@
                 done: function (e, data) {
                     if (data.result.success) {
                         var val = $("#showPic").val();
+
+                        var idstr = new Date().getTime();
+
+                        var v = {"id":idstr,"value":data.result.result}
                         var sp;
                         if (!val){
                             sp = new Array();
-                            sp.push(data.result.result);
+                            sp.push(v);
                         }else {
                             sp = eval(val);
-                            sp.push(data.result.result);
+                            sp.push(v);
                         }
                         $("#showPic").val(JSON.stringify(sp));
-                        $('#showpic-div').append('<img style="width:100px;" onclick="removeShowPic(this)" src="'+data.result.result+'" />');
+                        $('#showpic-div').append('<img style="width:100px;" attr-id="'+idstr+'" onclick="removeShowPic(this)" src="'+data.result.result+'" />');
                     }
                     else {
                         layer.msg(data.result.errorDesc, { icon: 5, time: 2000 });
@@ -239,10 +243,17 @@
             layer.confirm("确定删除该图片？", {
                 btn: ["确定","取消"] //按钮
             }, function(index){
-                var rm = $(e).attr("src");
+                var rmid = $(e).attr("attr-id");
                 var val = $("#showPic").val();
                 var sp = eval(val);
-                sp.splice($.inArray(rm,sp),1);
+
+                for (var i = 0;i<sp.length;i++){
+                    if (sp[i].id == rmid){
+                        sp.splice(i,1);
+                    }
+                }
+
+                // sp.splice($.inArray(rm,sp),1);
                 $("#showPic").val(JSON.stringify(sp));
                 $(e).remove();
                 layer.close(index);
