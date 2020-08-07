@@ -28,15 +28,18 @@ function productList() {
                 'bSortable': false
             }, {
                 'mDataProp': 'thumbnail',
-                'bSortable': false
+                'bSortable': false,
+                'mRender': function (data, type, row) {
+                    if (data.indexOf("http")>=0){
+                        return '<img width="50" class="picture-thumb" src="' + data + '">';
+                    }
+                    return '<img class="picture-thumb '+data+'">';
+                }
             }, {
                 'mDataProp': 'area',
                 'bSortable': false
             }, {
                 'mDataProp': 'category',
-                'bSortable': false
-            }, {
-                'mDataProp': 'extendInfo',
                 'bSortable': false
             }, {
                 'mDataProp': 'createTime',

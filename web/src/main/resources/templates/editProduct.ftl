@@ -2,11 +2,11 @@
 <@layout.layout>
     <article class="page-container">
         <form action="" method="post" class="form form-horizontal" id="form-product-add">
-            <input type="hidden" value="${product.id!''}" id="id" name="id">
+            <input type="hidden" value="" id="id" name="id">
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>广告位名：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="${product.name!''}" placeholder="" id="name" name="name">
+                    <input type="text" class="input-text" value="" placeholder="" id="name" name="name">
                 </div>
             </div>
             <div class="row cl">
@@ -16,9 +16,6 @@
                     <select class="select" size="1" name="area">
                         <#if area?exists>
                             <#list area as i>
-                                <#if (product.area!'0'?number) == i.id></#if>
-                                <option selected="selected" value="${i.id!''}">${i.value!''}</option>
-                                <#else>
                                 <option value="${i.id!''}">${i.value!''}</option>
                             </#list>
                         </#if>
@@ -30,13 +27,10 @@
                 <label class="form-label col-xs-4 col-sm-3">分类：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                 <span class="select-box">
-                    <select class="select" size="1" name="openRoom">
+                    <select class="select" size="1" name="category">
                         <#if category?exists>
-                            <#list category as i>
-                                <#if product.area == i></#if>
-                                <option selected="selected" value="${i!''}">${i!''}</option>
-                                <#else>
-                                <option value="${i!''}">${i!''}</option>
+                            <#list category?keys as k>
+                                <option value="${k!''}">${category[k]!''}</option>
                             </#list>
                         </#if>
                     </select>
@@ -79,40 +73,38 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">参数：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="${product.parm!''}" placeholder="" id="parm" name="parm">
+                    <input type="text" class="input-text" value="" placeholder="" id="parm" name="parm">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">编号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="${product.serialNo!''}" placeholder="" id="serialNo" name="serialNo">
+                    <input type="text" class="input-text" value="" placeholder="" id="serialNo" name="serialNo">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">媒体位置：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="${product.place!''}" placeholder="" id="place" name="place">
+                    <input type="text" class="input-text" value="" placeholder="" id="place" name="place">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">时间：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="${product.runTime!''}" placeholder="" id="runTime" name="runTime">
+                    <input type="text" class="input-text" value="" placeholder="" id="runTime" name="runTime">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">人流量：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="${product.flow!''}" placeholder="" id="flow" name="flow">
+                    <input type="text" class="input-text" value="" placeholder="" id="flow" name="flow">
                 </div>
             </div>
 
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">媒体介绍：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <textarea name="introduceInfo" cols="" rows="" class="textarea valid" placeholder="">
-                        ${product.introduceInfo!''}
-                    </textarea>
+                    <textarea name="introduceInfo" cols="" rows="" class="textarea valid" placeholder=""></textarea>
                     <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
                 </div>
             </div>

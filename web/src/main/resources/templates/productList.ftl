@@ -40,11 +40,13 @@
         <table id="product_table" class="table table-border table-bordered table-hover table-bg">
             <thead>
             <tr class="text-c">
+                <th>id</th>
                 <th>广告名</th>
                 <th>缩略图</th>
                 <th>区域</th>
                 <th>分类</th>
-                <th>规格</th>
+                <th>创建时间</th>
+                <th>修改时间</th>
                 <th>操作</th>
             </tr>
             </thead>
