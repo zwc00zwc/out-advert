@@ -32,7 +32,7 @@
         </div>
         <div class="cl pd-5 bg-1 bk-gray mt-20">
                 <span class="l">
-                    <a href="javascript:;" onclick="layer_show('新增','/console/addProduct','','800');" class="btn btn-primary radius">
+                    <a href="javascript:;" onclick="layer_show('新增','/console/addProduct','','700');" class="btn btn-primary radius">
                         <i class="Hui-iconfont">&#xe600;</i> 新增
                     </a>
                 </span>

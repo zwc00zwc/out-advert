@@ -94,7 +94,7 @@ function getAllOperation(row) {
 
 $("#product_table").on("click", '#edit', function () {
     var id = $(this).attr("data-id");
-    layer_show('编辑广告位', '/console/editProduct?id=' + id + '', '', '800');
+    layer_show('编辑广告位', '/console/editProduct?id=' + id + '', '', '700');
 });
 
 $("#product_table").on("click", '#remove', function () {
