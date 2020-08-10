@@ -168,12 +168,12 @@
             <div class="item">
                 <div class="title">服务项目</div>
                 <div class="service-item">
-                    <img src="${request.getContextPath()}/image/服务项目1.png"  class='service-item-image'/>
-                    <img src="${request.getContextPath()}/image/服务项目2.png" class='service-item-image' style='margin: 0 8px'/>
-                    <img src="${request.getContextPath()}/image/服务项目3.png" class='service-item-image'/>
-                    <img src="${request.getContextPath()}/image/服务项目4.png" class='service-item-image'  style='margin-top:8px'/>
-                    <img src="${request.getContextPath()}/image/服务项目5.png" class='service-item-image' style='margin: 0 8px;margin-top:8px' />
-                    <img src="${request.getContextPath()}/image/服务项目6.png" class='service-item-image' style='margin-top:8px'/>
+                    <img src="${request.getContextPath()}/image/服务项目1.png" href="${request.getContextPath()}/list"  class='service-item-image'/>
+                    <img src="${request.getContextPath()}/image/服务项目2.png" href="${request.getContextPath()}/list" class='service-item-image' style='margin: 0 8px'/>
+                    <img src="${request.getContextPath()}/image/服务项目3.png" href="${request.getContextPath()}/list" class='service-item-image'/>
+                    <img src="${request.getContextPath()}/image/服务项目4.png" href="${request.getContextPath()}/list" class='service-item-image'  style='margin-top:8px'/>
+                    <img src="${request.getContextPath()}/image/服务项目5.png" href="${request.getContextPath()}/list" class='service-item-image' style='margin: 0 8px;margin-top:8px' />
+                    <img src="${request.getContextPath()}/image/服务项目6.png" href="${request.getContextPath()}/list" class='service-item-image' style='margin-top:8px'/>
                 </div>
 
             </div>
@@ -182,25 +182,45 @@
                 <div class="title">案例展示</div>
                 <div class="case-first">
                     <div class="column">
-                        <img class="column-case-img" src="./image/case1.png" />
-                        <img src="${request.getContextPath()}/image/案例展示1.png" class='column-image'/>
+                        <#if topleftProduct??>
+                            <img class="column-case-img" src="${topleftProduct.thumbnail!''}" />
+                        <#else>
+                            <img class="column-case-img" src="" />
+                        </#if>
+                        <img src="./image/案例展示1.png" class='column-image'/>
                     </div>
                     <div class="column">
-                        <img src="${request.getContextPath()}/image/case2.png"  class="column-case-img"/>
-                        <img src="${request.getContextPath()}/image/案例展示2.png" class='column-image'/>
+                        <#if toprightProduct??>
+                            <img src="${toprightProduct.thumbnail!''}"  class="column-case-img"/>
+                            <#else>
+                                <img src=""  class="column-case-img"/>
+                        </#if>
+                        <img src="./image/案例展示2.png" class='column-image'/>
                     </div>
                 </div>
                 <div class='row'>
-                    <img src="${request.getContextPath()}/image/case3.png" class="column-case-img"/>
-                    <img src="${request.getContextPath()}/image/案例展示3.png" class='row-image'/>
+                    <#if upfirstProduct??>
+                        <img src="${upfirstProduct.thumbnail!''}" class="column-case-img"/>
+                        <#else>
+                            <img src="" class="column-case-img"/>
+                    </#if>
+                    <img src="./image/案例展示3.png" class='row-image'/>
                 </div>
                 <div class='row'>
-                    <img src="${request.getContextPath()}/image/case4.png" class="column-case-img"/>
-                    <img src="${request.getContextPath()}/image/案例展示4.png" class='row-image'/>
+                    <#if upsecondProduct??>
+                        <img src="${upsecondProduct.thumbnail!''}" class="column-case-img"/>
+                    <#else>
+                        <img src="" class="column-case-img"/>
+                    </#if>
+                    <img src="./image/案例展示4.png" class='row-image'/>
                 </div>
                 <div class='row'>
-                    <img src="${request.getContextPath()}/image/case5.png" class="column-case-img"/>
-                    <img src="${request.getContextPath()}/image/案例展示5.png" class='row-image'/>
+                    <#if upthirdProduct??>
+                        <img src="${upthirdProduct.thumbnail!''}" class="column-case-img"/>
+                    <#else>
+                        <img src="" class="column-case-img"/>
+                    </#if>
+                    <img src="./image/案例展示5.png" class='row-image'/>
                 </div>
 
             </div>
