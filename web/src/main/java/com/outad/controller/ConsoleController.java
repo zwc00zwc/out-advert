@@ -188,7 +188,7 @@ public class ConsoleController extends BaseController {
         if (!isLogined()){
             return pageResult;
         }
-
+        query.setConfigGroup(Constant.AREA);
         pageResult = systemConfigService.queryPageList(query);
         return pageResult;
     }
