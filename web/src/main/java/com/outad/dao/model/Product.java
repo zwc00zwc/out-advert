@@ -1,6 +1,14 @@
 package com.outad.dao.model;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: siskin_zh
@@ -14,6 +22,8 @@ public class Product {
     private String thumbnail;
 
     private String showPic;
+
+    private Map showPicList;
 
     private Long area;
 
@@ -67,6 +77,24 @@ public class Product {
 
     public void setShowPic(String showPic) {
         this.showPic = showPic;
+    }
+
+    public Map getShowPicList() {
+        Map<String,String> map = new HashMap<>();
+        if (!StringUtils.isEmpty(showPic)){
+            JSONArray jsonArray = JSONArray.parseArray(showPic);
+            if (jsonArray != null && jsonArray.size()>0){
+                for (int i = 0;i<jsonArray.size();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    map.put(jsonObject.get("id")+"",jsonObject.get("value")+"");
+                }
+            }
+        }
+        return map;
+    }
+
+    public void setShowPicList(Map showPicList) {
+        this.showPicList = showPicList;
     }
 
     public Long getArea() {

@@ -29,6 +29,8 @@ import org.springframework.web.multipart.MultipartResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -132,6 +134,9 @@ public class ConsoleController extends BaseController {
         if (!isLogined()){
             resultDo.setErrorDesc("未登录");
             return resultDo;
+        }
+        if(!StringUtils.isEmpty(product.getShowPic())){
+
         }
         if (product.getId() == null || product.getId() <1){
             resultDo.setSuccess(productService.addProduct(product));

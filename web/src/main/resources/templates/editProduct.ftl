@@ -63,7 +63,7 @@
                         <a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 上传图片</a>
                         <input id="thumbnailUpload" type="file" class="input-file valid" data-url="/console/upload" multiple="">
                     </span>
-                    <input type="hidden" name="thumbnail" id="thumbnail" value="${product.thumbnail!''}" style="width:200px">
+                    <input type="hidden" name="thumbnail" id="thumbnail" value='${product.thumbnail!''}' style="width:200px">
                     <img id="thumbnailSrc" style="width:100px;" onclick="removeThumbnail()" src="${product.thumbnail!''}" />
                 </div>
             </div>
@@ -74,8 +74,13 @@
                         <a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 上传图片</a>
                         <input id="showPicUpload" type="file" class="input-file valid" data-url="/console/upload" multiple="">
                     </span>
-                    <input type="hidden" name="showPic" id="showPic" value="${product.showPic!''}" style="width:200px">
+                    <input type="hidden" name="showPic" id="showPic" value='${product.showPic!''}' style="width:200px">
                     <#--                    <img style="width:100px;" onclick="removeShowPic()" src="" />-->
+                    <#if product.showPicList?exists>
+                        <#list product.showPicList?keys as k>
+                            <img style="width:100px;" attr-id="${k!''}" onclick="removeShowPic(this)" src="${product.showPicList[k]!''}" />
+                        </#list>
+                    </#if>
                 </div>
             </div>
             <div class="row cl">
@@ -153,7 +158,9 @@
                     if (data.result.success) {
                         var val = $("#showPic").val();
 
-                        var v = {"id":new Date().getTime(),"value":data.result.result}
+                        var idstr = new Date().getTime();
+
+                        var v = {"id":idstr,"value":data.result.result}
                         var sp;
                         if (!val){
                             sp = new Array();
@@ -163,7 +170,7 @@
                             sp.push(v);
                         }
                         $("#showPic").val(JSON.stringify(sp));
-                        $('#showpic-div').append('<img style="width:100px;" onclick="removeShowPic(this)" src="'+data.result.result+'" />');
+                        $('#showpic-div').append('<img style="width:100px;" attr-id="'+idstr+'" onclick="removeShowPic(this)" src="'+data.result.result+'" />');
                     }
                     else {
                         layer.msg(data.result.errorDesc, { icon: 5, time: 2000 });
@@ -249,10 +256,17 @@
             layer.confirm("确定删除该图片？", {
                 btn: ["确定","取消"] //按钮
             }, function(index){
-                var rm = $(e).attr("src");
+                var rmid = $(e).attr("attr-id");
                 var val = $("#showPic").val();
                 var sp = eval(val);
-                sp.splice($.inArray(rm,sp),1);
+
+                for (var i = 0;i<sp.length;i++){
+                    if (sp[i].id == rmid){
+                        sp.splice(i,1);
+                    }
+                }
+
+                // sp.splice($.inArray(rm,sp),1);
                 $("#showPic").val(JSON.stringify(sp));
                 $(e).remove();
                 layer.close(index);
