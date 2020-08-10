@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -241,6 +242,132 @@ public class ConsoleController extends BaseController {
     @RequestMapping(value = "/banner")
     String banner(){
         return "banner";
+    }
+
+    @RequestMapping(value = "/indexSet")
+    String indexSet(Model model){
+        Map map = new HashMap();
+        List<SystemConfig> list = systemConfigService.queryGroupList("indexSet");
+        if (list!=null && list.size()>0){
+            for (SystemConfig c:list) {
+                map.put(c.getKey(),c.getValue());
+            }
+        }
+        model.addAttribute("indexMap",map);
+        return "indexSet";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/saveIndexSet")
+    ResultDo saveIndexSet(Long topleft,Long topright,Long upfirst,Long upsecond,Long upthird){
+        ResultDo resultDo = new ResultDo();
+        try {
+            SystemConfig topleftConfig = systemConfigService.queryByGroupAndKey("indexSet","topleft");
+            if (topleftConfig == null){
+                topleftConfig = new SystemConfig();
+                topleftConfig.setConfigGroup("indexSet");
+                topleftConfig.setKey("topleft");
+                if (topleft == null){
+                    topleftConfig.setValue(null);
+                }else {
+                    topleftConfig.setValue(topleft+"");
+                }
+                systemConfigService.add(topleftConfig);
+            }else {
+                if (topleft == null){
+                    topleftConfig.setValue(null);
+                }else {
+                    topleftConfig.setValue(topleft+"");
+                }
+                systemConfigService.updateValue(topleftConfig);
+            }
+
+            SystemConfig toprightConfig = systemConfigService.queryByGroupAndKey("indexSet","topright");
+            if (toprightConfig == null){
+                toprightConfig = new SystemConfig();
+                toprightConfig.setConfigGroup("indexSet");
+                toprightConfig.setKey("topright");
+                if (topright==null){
+                    toprightConfig.setValue(null);
+                }else {
+                    toprightConfig.setValue(topright+"");
+                }
+                systemConfigService.add(toprightConfig);
+            }else {
+                if (topright==null){
+                    toprightConfig.setValue(null);
+                }else {
+                    toprightConfig.setValue(topright+"");
+                }
+                systemConfigService.updateValue(toprightConfig);
+            }
+
+            SystemConfig upfirstConfig = systemConfigService.queryByGroupAndKey("indexSet","upfirst");
+            if (upfirstConfig == null){
+                upfirstConfig = new SystemConfig();
+                upfirstConfig.setConfigGroup("indexSet");
+                upfirstConfig.setKey("upfirst");
+                if (upfirst==null){
+                    upfirstConfig.setValue(null);
+                }else {
+                    upfirstConfig.setValue(upfirst+"");
+                }
+                systemConfigService.add(upfirstConfig);
+            }else {
+                if (upfirst==null){
+                    upfirstConfig.setValue(null);
+                }else {
+                    upfirstConfig.setValue(upfirst+"");
+                }
+                systemConfigService.updateValue(upfirstConfig);
+            }
+
+            SystemConfig upsecondConfig = systemConfigService.queryByGroupAndKey("indexSet","upsecond");
+            if (upsecondConfig == null){
+                upsecondConfig = new SystemConfig();
+                upsecondConfig.setConfigGroup("indexSet");
+                upsecondConfig.setKey("upsecond");
+                if (upsecond == null){
+                    upsecondConfig.setValue(null);
+                }else {
+                    upsecondConfig.setValue(upsecond+"");
+                }
+                systemConfigService.add(upsecondConfig);
+            }else {
+                if (upsecond == null){
+                    upsecondConfig.setValue(null);
+                }else {
+                    upsecondConfig.setValue(upsecond+"");
+                }
+                systemConfigService.updateValue(upsecondConfig);
+            }
+
+            SystemConfig upthirdConfig = systemConfigService.queryByGroupAndKey("indexSet","upthird");
+            if (upthirdConfig == null){
+                upthirdConfig = new SystemConfig();
+                upthirdConfig.setConfigGroup("indexSet");
+                upthirdConfig.setKey("upthird");
+                if (upthird==null){
+                    upthirdConfig.setValue(null);
+                }else {
+                    upthirdConfig.setValue(upthird+"");
+                }
+                systemConfigService.add(upthirdConfig);
+            }else {
+                if (upthird==null){
+                    upthirdConfig.setValue(null);
+                }else {
+                    upthirdConfig.setValue(upthird+"");
+                }
+                systemConfigService.updateValue(upthirdConfig);
+            }
+        } catch (Exception e) {
+            logger.error("程序异常",e);
+            resultDo.setSuccess(false);
+            return resultDo;
+        }
+        resultDo.setSuccess(true);
+        return resultDo;
     }
 
     @ResponseBody

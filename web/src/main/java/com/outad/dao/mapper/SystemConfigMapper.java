@@ -13,6 +13,8 @@ import java.util.List;
 public interface SystemConfigMapper {
     int insert(SystemConfig systemConfig);
 
+    int updateValue(SystemConfig systemConfig);
+
     SystemConfig selectById(@Param("id")Long id);
 
     List<SystemConfig> selectByGroup(@Param("configGroup") String configGroup);

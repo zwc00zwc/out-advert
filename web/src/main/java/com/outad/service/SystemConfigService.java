@@ -64,4 +64,11 @@ public class SystemConfigService {
         }
         return false;
     }
+
+    public boolean updateValue(SystemConfig systemConfig){
+        if (systemConfigMapper.updateValue(systemConfig)>0){
+            return true;
+        }
+        return false;
+    }
 }

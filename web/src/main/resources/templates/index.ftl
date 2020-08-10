@@ -50,7 +50,7 @@
             <dt><i class="Hui-iconfont">&#xe616;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="/console/banner" data-title="banner设置" href="javascript:void(0)">banner设置</a></li>
+                    <li><a data-href="/console/indexSet" data-title="首页设置" href="javascript:void(0)">首页设置</a></li>
                     <li><a data-href="/console/areaList" data-title="区域列表" href="javascript:void(0)">区域列表</a></li>
                     <li><a data-href="/console/productList" data-title="房间列表" href="javascript:void(0)">广告位列表</a></li>
                 </ul>

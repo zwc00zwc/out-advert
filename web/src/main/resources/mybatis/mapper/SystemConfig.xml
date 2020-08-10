@@ -59,6 +59,11 @@
         </trim>
     </insert>
 
+    <update id="updateValue" parameterType="com.outad.dao.model.SystemConfig">
+        update ad_system_config set
+        `value` = #{value,jdbcType=VARCHAR} where id = #{id,jdbcType=BIGINT}
+    </update>
+
     <select id="selectById" resultMap="BaseResultMap">
         <include refid="select_sql"/> from ad_system_config where id = #{id}
     </select>
