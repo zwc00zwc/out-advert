@@ -113,7 +113,11 @@
     <div id='app' class='scroll-hide'>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" @change="onChange">
             <van-swipe-item style="height:100vw;" v-for="image in swipeList">
-                <van-image style='height:100%;'  :src="image.src || 'https://img.yzcdn.cn/vant/cat.jpeg'" />
+                <#if product.showPicList?exists>
+                    <#list product.showPicList?keys as k>
+                        <van-image style='height:100%;'  :src="image.src || '${product.showPicList[k]!''}'" />
+                    </#list>
+                </#if>
             </van-swipe-item>
             <template #indicator>
                 <div class="custom-indicator">
