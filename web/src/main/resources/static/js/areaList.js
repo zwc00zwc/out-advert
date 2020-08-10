@@ -28,10 +28,16 @@ function areaList() {
                 'bSortable': false
             }, {
                 'mDataProp': 'createTime',
-                'bSortable': false
+                'bSortable': false,
+                'mRender': function (data, type, row) {
+                    return new Date(data).Format("yyyy-MM-dd hh:mm:ss");
+                }
             }, {
                 'mDataProp': 'updateTime',
-                'bSortable': false
+                'bSortable': false,
+                'mRender': function (data, type, row) {
+                    return new Date(data).Format("yyyy-MM-dd hh:mm:ss");
+                }
             }, {
                 'mDataProp': 'operation',
                 'bSortable': false,

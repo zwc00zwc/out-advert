@@ -1,11 +1,11 @@
-var roomTable;
+var productTable;
 $(function () {
     productList();
     searchProductList();
 })
 
 function productList() {
-    roomTable = $('#product_table').dataTable({
+    productTable = $('#product_table').dataTable({
         language: datatable_zn,
         'bAutoWidth': false,
         'bFilter': false,
@@ -43,10 +43,16 @@ function productList() {
                 'bSortable': false
             }, {
                 'mDataProp': 'createTime',
-                'bSortable': false
+                'bSortable': false,
+                'mRender': function (data, type, row) {
+                    return new Date(data).Format("yyyy-MM-dd hh:mm:ss");
+                }
             }, {
                 'mDataProp': 'updateTime',
-                'bSortable': false
+                'bSortable': false,
+                'mRender': function (data, type, row) {
+                    return new Date(data).Format("yyyy-MM-dd hh:mm:ss");
+                }
             }
             , {
                 'mDataProp': 'operation',
@@ -61,14 +67,22 @@ function productList() {
 
 function getAllSearchValue(aoData) {
     aoData.push({
-        "name": 'key',
-        "value": trimStr($('#key').val())
+        "name": 'name',
+        "value": trimStr($('#name').val())
+    });
+    aoData.push({
+        "name": 'area',
+        "value": trimStr($('#area').val())
+    });
+    aoData.push({
+        "name": 'category',
+        "value": trimStr($('#category').val())
     });
 }
 
 function searchProductList() {
     $("#search").on("click", function () {
-        roomTable.fnDraw();
+        productTable.fnDraw();
     });
 }
 

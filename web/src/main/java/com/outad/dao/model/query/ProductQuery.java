@@ -9,7 +9,7 @@ public class ProductQuery extends BaseQuery {
 
     private Long area;
 
-    private Long category;
+    private String category;
 
     public String getName() {
         return name;
@@ -27,11 +27,11 @@ public class ProductQuery extends BaseQuery {
         this.area = area;
     }
 
-    public Long getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Long category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 }

@@ -11,7 +11,7 @@
         <div class="text-c">
             广告名:<input type="text" class="input-text" style="width:250px" placeholder="" id="name" name="name">
             区域:<span class="select-box" style="width:150px">
-			<select class="select" name="area" size="1">
+			<select class="select" id="area" name="area" size="1">
                 <#if area?exists>
                     <#list area as i>
                         <option value="${i.id!''}">${i.value!''}</option>
@@ -20,7 +20,7 @@
 			</select>
 			</span>
             分类:<span class="select-box" style="width:150px">
-			<select class="select" name="category" size="1">
+			<select class="select" id="category" name="category" size="1">
                 <#if category?exists>
                     <#list category?keys as k>
                         <option value="${k!''}">${category[k]!''}</option>

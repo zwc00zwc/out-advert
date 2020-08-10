@@ -12,7 +12,8 @@
         <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" ></result>
         <result column="show_pic" property="showPic" jdbcType="VARCHAR"></result>
         <result column="area" property="area" jdbcType="BIGINT"></result>
-        <result column="category" property="category" jdbcType="BIGINT"></result>
+        <result column="category" property="category" jdbcType="VARCHAR"></result>
+        <result column="price" property="price" jdbcType="DECIMAL"></result>
         <result column="parm" property="parm" jdbcType="VARCHAR"></result>
         <result column="serial_no" property="serialNo" jdbcType="VARCHAR"></result>
         <result column="place" property="place" jdbcType="VARCHAR"></result>
@@ -25,7 +26,7 @@
     </resultMap>
 
     <sql id="select_sql">
-        SELECT id,name,thumbnail,show_pic,area,category,parm,serial_no,place,run_time,flow,introduce_info,create_time,update_time,del_flag
+        SELECT id,name,thumbnail,show_pic,area,category,price,parm,serial_no,place,run_time,flow,introduce_info,create_time,update_time,del_flag
     </sql>
 
     <insert id="insert" parameterType="com.outad.dao.model.Product">
@@ -45,6 +46,9 @@
             </if>
             <if test="category != null">
                 category,
+            </if>
+            <if test="price != null">
+                price,
             </if>
             <if test="parm != null">
                 parm,
@@ -82,7 +86,10 @@
                 #{area,jdbcType=BIGINT},
             </if>
             <if test="category != null">
-                #{category,jdbcType=BIGINT},
+                #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
             </if>
             <if test="parm != null">
                 #{parm,jdbcType=VARCHAR},
@@ -126,6 +133,9 @@
             <if test="category != null">
                 category = #{category,jdbcType=VARCHAR},
             </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
             <if test="parm != null">
                 parm = #{parm,jdbcType=VARCHAR},
             </if>
@@ -166,7 +176,7 @@
             <if test="query.area!=null and query.area>0">
                 and area = #{query.area}
             </if>
-            <if test="query.category!=null and query.category>0">
+            <if test="query.category!=null">
                 and category = #{query.category}
             </if>
             and del_flag = 1
@@ -182,7 +192,7 @@
             <if test="query.area!=null and query.area>0">
                 and area = #{query.area}
             </if>
-            <if test="query.category!=null and query.category>0">
+            <if test="query.category!=null">
                 and category = #{query.category}
             </if>
             and del_flag = 1
